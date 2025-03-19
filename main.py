@@ -97,10 +97,13 @@ def main():
         city_objs = [
             validate_found_cities(arg, find_city_by_name(arg, cities)) for arg in args
         ]
-        for city1, city2 in itertools.combinations(city_objs, 2):
-            print(
-                f"The distance between {city1} and {city2} is: {city1.distance(city2)} km"
-            )
+        total_distance = 0
+        for city1, city2 in zip(city_objs, city_objs[1:]):
+            dist = city1.distance(city2)
+            total_distance += dist
+            print(f"The distance between {city1} and {city2} is: {dist} km")
+
+        print(f"The total distance is: {total_distance} km")
     else:
         sys.exit(
             "Usage: python script.py <city1> <city2> ... OR python script.py <lat1> <lon1> <lat2> <lon2>"
